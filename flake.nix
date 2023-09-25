@@ -8,24 +8,29 @@
   inputs.rust-overlay.url = "github:oxalica/rust-overlay";
   inputs.rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, flake-utils, cargo2nix, rust-overlay }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [
-            cargo2nix.overlays.default
-            rust-overlay.overlays.default
-          ];
-        };
-
-        rustPkgs = pkgs.rustBuilder.makePackageSet {
-          rustToolchain = pkgs.rust-bin.stable.latest.default;
-          packageFun = import ./Cargo.nix;
-        };
-      in rec {
-        packages.discord-bot = (rustPkgs.workspace.dolphinbot {}).bin;
-        defaultPackage = packages.discord-bot;
-      }
-    );
+  outputs = { self, nixpkgs, flake-utils, cargo2nix, rust-overlay }: {
+    overlay = nixpkgs.lib.composeManyExtensions [
+      cargo2nix.overlays.default
+      rust-overlay.overlays.default
+      (final: prev: {
+        discord-bot = let
+          rustPkgs = prev.rustBuilder.makePackageSet {
+            rustToolchain = prev.rust-bin.stable.latest.default;
+            packageFun = import ./Cargo.nix;
+          };
+        in
+          (rustPkgs.workspace.dolphinbot {}).bin;
+      })
+    ];
+  } // (flake-utils.lib.eachDefaultSystem (system:
+    let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ self.overlay ];
+      };
+    in with pkgs; {
+      packages = { inherit discord-bot; };
+      defaultPackage = self.packages.${system}.discord-bot;
+    }
+  ));
 }
