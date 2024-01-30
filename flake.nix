@@ -2,7 +2,7 @@
   description = "dolphinbot, Dolphin's Discord bot";
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
   inputs.cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.11.0";
   inputs.cargo2nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.rust-overlay.url = "github:oxalica/rust-overlay";
