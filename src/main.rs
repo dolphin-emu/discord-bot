@@ -21,7 +21,7 @@ impl EventHandler for Handler {
         }
 
         let ctx = Arc::new(ctx);
-        let gateway_raw: &'static str = "Piracy is illegal, so I will not talk about downloading games or copyrighted content even if I have owned another copy in the past, as that is still illegal under US law.";
+        let gateway_raw: &'static str = "This server does not tolerate piracy in any form. I will be banned if I ask for downloads, if I share links or website names for piracy sites, if I admit that I have pirated, or if I advocate for piracy.";
         
         let pattern = Regex::new(r"[*,.-` ><!]").unwrap();
         let clean = pattern.replace_all(&msg.content, "").to_lowercase();
