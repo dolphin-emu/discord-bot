@@ -10,16 +10,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1705129117,
-        "narHash": "sha256-LgdDHibvimzYhxBK3kxCk2gAL7k4Hyigl5KI0X9cijA=",
+        "lastModified": 1712112199,
+        "narHash": "sha256-5ur7bE90d+6Ny6PzC/6R0bDAa6B1+gDAk2XIFSDfAjY=",
         "owner": "cargo2nix",
         "repo": "cargo2nix",
-        "rev": "ae19a9e1f8f0880c088ea155ab66cee1fa001f59",
+        "rev": "da5f5d796af00fe818aa12f3b2d46a4800e6fec8",
         "type": "github"
       },
       "original": {
         "owner": "cargo2nix",
-        "ref": "release-0.11.0",
+        "ref": "release-0.12",
         "repo": "cargo2nix",
         "type": "github"
       }
